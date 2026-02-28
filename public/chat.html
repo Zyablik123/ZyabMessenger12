@@ -3,44 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>ZyabSpace | Messenger</title>
     <meta name="description" content="ZyabSpace — мессенджер нового поколения для своих. Скорость, защита и зяблики!">
     <meta name="keywords" content="ZyabSpace, чат, мессенджер, зяблик">
-    
     <link rel="stylesheet" href="/style.css">
     <style>
         .header-btns { display: flex; gap: 10px; align-items: center; }
         .logout-btn { background-color: #ff4d4d !important; padding: 5px 10px; font-size: 12px; }
         .settings-btn { background-color: #555; padding: 5px 10px; font-size: 12px; }
         #regModal { display: none; }
-        
-        /* Стиль для блока соглашения */
-        .terms-container {
-            margin-top: 15px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            text-align: left;
-        }
-        .terms-text {
-            font-size: 11px;
-            color: #aaa;
-            line-height: 1.4;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            cursor: pointer;
-        }
-        .terms-text input {
-            width: auto !important;
-            margin: 0 !important;
-            margin-top: 2px !important;
-        }
-        .terms-link {
-            color: #2481cc;
-            text-decoration: underline;
-        }
+        .terms-box { margin-top: 15px; text-align: left; font-size: 11px; color: #aaa; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
@@ -55,11 +27,8 @@
             </div>
             <div id="userList" class="user-list"></div>
         </aside>
-
         <main class="chat-window">
-            <div class="chat-header">
-                <span id="chatHeader">Выберите чат</span>
-            </div>
+            <div class="chat-header"><span id="chatHeader">Выберите чат</span></div>
             <div id="messages" class="messages-container"></div>
             <div class="chat-input-area">
                 <input type="text" id="msgInput" placeholder="Напиши что-нибудь..." autocomplete="off">
@@ -76,18 +45,16 @@
                 <input type="text" name="surname" placeholder="Фамилия" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <div class="file-input">
-                    <label for="avatar" style="cursor:pointer; color:#ccc; font-size:14px;">Выберите аватар</label>
-                    <input type="file" id="avatar" name="avatar" accept="image/*" style="margin-top:5px;">
+                    <label for="avatar" style="cursor:pointer; color:#ccc;">Выберите аватар</label>
+                    <input type="file" id="avatar" name="avatar" accept="image/*">
                 </div>
-                
-                <div class="terms-container">
-                    <label class="terms-text">
-                        <input type="checkbox" id="termsCheck" required>
-                        <span>Я подтверждаю, что ознакомлен и полностью согласен с <a href="/terms.html" target="_blank" class="terms-link">Пользовательским соглашением</a> и политикой конфиденциальности.</span>
+                <div class="terms-box">
+                    <label style="display:flex; gap:8px; cursor:pointer;">
+                        <input type="checkbox" required style="width:auto; margin-bottom:0;">
+                        <span>Я согласен с <a href="/terms.html" target="_blank" style="color:#2481cc;">Условиями пользования</a></span>
                     </label>
                 </div>
-
-                <button type="submit" style="margin-top: 15px;">ПОГНАЛИ!</button>
+                <button type="submit" style="margin-top:10px;">ПОГНАЛИ!</button>
             </form>
         </div>
     </div>
@@ -95,15 +62,13 @@
     <div id="settingsModal" class="modal-overlay" style="display:none;">
         <div class="reg-box">
             <h3>Настройки темы</h3>
-            <label>Цвет интерфейса:</label>
             <input type="color" id="themeColor" value="#2481cc">
-            <div style="margin-top: 20px; display: flex; gap: 10px;">
+            <div style="margin-top:20px; display:flex; gap:10px;">
                 <button onclick="saveSettings()">Сохранить</button>
-                <button onclick="closeSettings()" style="background:#888 !important;">Закрыть</button>
+                <button onclick="closeSettings()" style="background:#888!important;">Закрыть</button>
             </div>
         </div>
     </div>
-
     <script src="/socket.io/socket.io.js"></script>
     <script src="/client.js"></script>
 </body>

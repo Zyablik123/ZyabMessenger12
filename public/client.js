@@ -7,11 +7,10 @@ function decrypt(encoded) {
     catch(e) { return encoded; } 
 }
 
-// КНОПКА ВЫХОДА
 function logout() {
     if(confirm("Реально хочешь выйти?")) {
         localStorage.removeItem('zyab_email');
-        location.reload(); // Перезагружаем страницу, чтобы сбросить всё
+        location.reload();
     }
 }
 
@@ -22,7 +21,23 @@ function applyTheme(color) {
     styleTag.innerHTML = `:root { --primary: ${color} !important; } .msg-row.my .msg-bubble, button, .contact.active { background-color: ${color} !important; color: white !important; }`;
 }
 
+// ВОТ ТУТ ПРОВЕРКА ОБНОВЛЕНИЯ
 window.onload = async () => {
+    const lastSeen = localStorage.getItem('lastUpdateSeen');
+    const currentVersion = '1.1'; 
+
+    if (lastSeen !== currentVersion) {
+        fetch('/update.html')
+            .then(res => res.ok ? res.text() : null)
+            .then(html => {
+                if(html) {
+                    const div = document.createElement('div');
+                    div.innerHTML = html;
+                    document.body.appendChild(div);
+                }
+            });
+    }
+
     applyTheme(localStorage.getItem('zyab_theme') || '#2481cc');
     const savedEmail = localStorage.getItem('zyab_email');
     if (savedEmail) {
@@ -103,7 +118,7 @@ function renderMessage(data) {
 let lastSend = 0;
 function sendText() {
     const now = Date.now();
-    if (now - lastSend < 1000) return; // Запрет отправки чаще чем раз в секунду
+    if (now - lastSend < 1000) return; 
     const input = document.getElementById('msgInput');
     if(!input.value.trim() || !targetUser) return;
     socket.emit('private message', { from: currentUser.email, to: targetUser, text: encrypt(input.value.trim()), fileType: 'text' });

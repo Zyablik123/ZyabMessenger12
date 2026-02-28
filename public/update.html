@@ -1,0 +1,42 @@
+<div id="updateNotice" style="
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #17212b;
+    border: 2px solid #2481cc;
+    border-radius: 15px;
+    padding: 25px;
+    z-index: 9999;
+    width: 320px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    text-align: center;
+">
+    <h2 style="color: #2481cc; margin-bottom: 15px;">ZyabSpace Обновлен!</h2>
+    <div style="text-align: left; font-size: 14px; color: #fff; margin-bottom: 20px;">
+        <p><b>Версия 1.1:</b></p>
+        <ul style="padding-left: 20px; margin-top: 5px;">
+            <li>Добавлена полная адаптивность для мобилок 📱</li>
+            <li>Внедрено официальное Лицензионное соглашение ⚖️</li>
+            <li>Исправлены ошибки с кэшем CSS 🛠️</li>
+            <li>Улучшено SEO для поиска Google/Яндекс 🔍</li>
+        </ul>
+    </div>
+    <button onclick="closeUpdate()" style="
+        background: #2481cc;
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+    ">Понял, заценим!</button>
+</div>
+
+<script>
+    function closeUpdate() {
+        document.getElementById('updateNotice').remove();
+        // Запоминаем, что пользователь уже видел это обновление версии 1.1
+        localStorage.setItem('lastUpdateSeen', '1.1');
+    }
+</script>
