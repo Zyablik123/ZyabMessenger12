@@ -3,51 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZyabGram | Messenger</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <title>ZyabSpace | Messenger</title>
+    <meta name="description" content="ZyabSpace — мессенджер нового поколения для своих. Скорость, защита и зяблики!">
+    <meta name="keywords" content="ZyabSpace, чат, мессенджер, зяблик">
+    
+    <link rel="stylesheet" href="/style.css">
     <style>
-        /* Добавочные стили для новых функций */
-        .header-btns {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .logout-btn {
-            background-color: #ff4d4d !important;
-            padding: 5px 10px;
-            font-size: 12px;
-        }
-        .settings-btn {
-            background-color: #555;
-            padding: 5px 10px;
-            font-size: 12px;
-        }
-        #regModal {
-            display: none; /* Скрыто по умолчанию, client.js покажет если надо */
-        }
+        .header-btns { display: flex; gap: 10px; align-items: center; }
+        .logout-btn { background-color: #ff4d4d !important; padding: 5px 10px; font-size: 12px; }
+        .settings-btn { background-color: #555; padding: 5px 10px; font-size: 12px; }
+        #regModal { display: none; }
     </style>
 </head>
 <body>
-
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h3>ZyabGram</h3>
+                <h3>ZyabSpace</h3>
                 <div class="header-btns">
                     <button class="settings-btn" onclick="openSettings()">⚙️</button>
                     <button class="logout-btn" onclick="logout()">Выйти</button>
                 </div>
             </div>
-            <div id="userList" class="user-list">
-                </div>
+            <div id="userList" class="user-list"></div>
         </aside>
 
         <main class="chat-window">
             <div class="chat-header">
                 <span id="chatHeader">Выберите чат</span>
             </div>
-            <div id="messages" class="messages-container">
-                </div>
+            <div id="messages" class="messages-container"></div>
             <div class="chat-input-area">
                 <input type="text" id="msgInput" placeholder="Напиши что-нибудь..." autocomplete="off">
                 <button onclick="sendText()">Отправить</button>
@@ -57,7 +43,7 @@
 
     <div id="regModal" class="modal-overlay">
         <div class="reg-box">
-            <h2>ZyabMessenger</h2>
+            <h2>ZyabSpace</h2>
             <form id="regForm">
                 <input type="text" name="username" placeholder="Имя" required>
                 <input type="text" name="surname" placeholder="Фамилия" required>
@@ -84,6 +70,6 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="client.js"></script>
+    <script src="/client.js"></script>
 </body>
 </html>
