@@ -21,7 +21,7 @@ function applyTheme(color) {
     styleTag.innerHTML = `:root { --primary: ${color} !important; } .msg-row.my .msg-bubble, button, .contact.active { background-color: ${color} !important; color: white !important; }`;
 }
 
-// ВОТ ТУТ ПРОВЕРКА ОБНОВЛЕНИЯ
+// ПРОВЕРКА ОБНОВЛЕНИЯ ПРИ ЗАГРУЗКЕ
 window.onload = async () => {
     const lastSeen = localStorage.getItem('lastUpdateSeen');
     const currentVersion = '1.1'; 
@@ -32,6 +32,7 @@ window.onload = async () => {
             .then(html => {
                 if(html) {
                     const div = document.createElement('div');
+                    div.id = "update-wrapper";
                     div.innerHTML = html;
                     document.body.appendChild(div);
                 }
@@ -50,6 +51,15 @@ window.onload = async () => {
             loadUsers();
         } else { document.getElementById('regModal').style.display = 'flex'; }
     } else { document.getElementById('regModal').style.display = 'flex'; }
+};
+
+// ФУНКЦИЯ ЗАКРЫТИЯ ОКНА ОБНОВЛЕНИЯ (Теперь работает!)
+window.closeUpdate = function() {
+    const notice = document.getElementById('updateNotice');
+    if (notice) {
+        notice.remove();
+        localStorage.setItem('lastUpdateSeen', '1.1');
+    }
 };
 
 document.getElementById('regForm').onsubmit = async (e) => {
@@ -115,15 +125,11 @@ function renderMessage(data) {
     document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 }
 
-let lastSend = 0;
 function sendText() {
-    const now = Date.now();
-    if (now - lastSend < 1000) return; 
     const input = document.getElementById('msgInput');
     if(!input.value.trim() || !targetUser) return;
     socket.emit('private message', { from: currentUser.email, to: targetUser, text: encrypt(input.value.trim()), fileType: 'text' });
     input.value = '';
-    lastSend = now;
 }
 
 socket.on('new message', (data) => { if (data.from === targetUser || data.from === currentUser.email) renderMessage(data); });
